@@ -1,0 +1,84 @@
+<script type="text/javascript">
+    RED.nodes.registerType('io7node',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"io7node";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="io7node">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="io7node">
+    <p>io7 IOT node</p>
+</script>
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('io7node in',{
+        category: 'input',
+        color: 'rgb(0,155,255)',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"io7node in";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="io7node in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="io7node in">
+    <p>io7 IOT In node</p>
+</script>
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('io7node out',{
+        category: 'output',
+        color: 'rgb(0,155,255)',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "file.png",
+        label: function() {
+            return this.name||"io7node out";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="io7node out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="io7node out">
+    <p>io7 IOT Out node</p>
+</script>

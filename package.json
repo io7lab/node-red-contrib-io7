@@ -1,0 +1,19 @@
+{
+    "name"         : "node-red-contrib-io7",
+    "version"      : "0.1.8",
+    "description"  : "io7 IOT nodes",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/io7lab/node-red-contrib-io7.git"
+     },
+    "dependencies": {
+     },
+    "keywords": [ "node-red" ],
+    "author": "Yoonseok Hur",
+    "node-red"     : {
+        "nodes": {
+            "io7": "node/io7nodes.js"
+        }
+    },
+    "license": "MIT"
+}
