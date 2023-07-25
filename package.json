@@ -7,8 +7,9 @@
     "url": "https://github.com/io7lab/node-red-contrib-io7.git"
      },
     "dependencies": {
+        "mqtt": "4.3.7"
      },
-    "keywords": [ "node-red" ],
+    "keywords": [ "node-red", "io7" ],
     "author": "Yoonseok Hur",
     "node-red"     : {
         "nodes": {

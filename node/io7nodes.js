@@ -1,41 +1,63 @@
+/* 
+ * io7 hub config node
+ */
 module.exports = function(RED) {
+    let mqtt = require('mqtt')
+    let client  = mqtt.connect('mqtt://192.168.82.77')
+
     function setUpNode(node, nodeCfg, inOrOut){ 
     };
 
-    function io7function(config) {
+    function io7hub(config) {
         RED.nodes.createNode(this,config);
-        var node = this;
+        const node = this;
         this.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
             msg.payload = msg.payload + 'qqq';
-console.log('io7node =>' + msg.payload);
             node.send(msg);
         });
     }
-    RED.nodes.registerType("io7node",io7function);
-
+    RED.nodes.registerType("io7-hub",io7hub);
+/* 
+ * io7 in node
+ */
     function io7in(config) {
         RED.nodes.createNode(this,config);
-        var node = this;
-        this.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
-            msg.payload = msg.payload + 'in';
-console.log('io7node =>' + msg.payload);
-            node.send(msg);
-        });
+        const node = this;
+        node.broker = config.broker;
+
+        /* interim */client.subscribe('node');
+node.log(config.port);
+
+        const Actions = {
+            CONNECT: 'connect',
+            DISCONNECT: 'disconnect',
+            SUBSCRIBE: 'subscribe',
+            UNSUBSCRIBE: 'unsubscribe',
+            GETSUBS: 'getSubscriptions',
+        };
+        const allowableActions = Object.values(Actions);
+
+        //node.brokerConn = RED.nodes.getNode(node.broker);
+client.on('message', function (topic, message) {
+  node.log(message);
+  node.send({payload:message});
+});
+node.log(JSON.stringify(node));
     }
-    RED.nodes.registerType("io7node in",io7in);
+    RED.nodes.registerType("io7 in",io7in);
+/* 
+ * io7 out node
+ */
 
     function io7out(config) {
         RED.nodes.createNode(this,config);
-        var node = this;
+        const node = this;
         this.on('input', function(msg) {
-            msg.payload = msg.payload.toLowerCase();
-            msg.payload = msg.payload + 'out';
-console.log('io7node =>' + msg.payload);
+            msg.payload = JSON.stringify(msg.payload) + 'out';
+            client.publish('node', msg.payload);
+            console.log('io7 =>' + msg.payload);
             node.send(msg);
         });
     }
-    RED.nodes.registerType("io7node out",io7out);
-
+    RED.nodes.registerType("io7 out",io7out);
 }

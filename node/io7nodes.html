@@ -1,64 +1,73 @@
-<script type="text/javascript">
-    RED.nodes.registerType('io7node',{
-        category: 'function',
-        color: '#a6bbcf',
-        defaults: {
-            name: {value:""}
-        },
-        inputs:1,
-        outputs:1,
-        icon: "file.png",
-        label: function() {
-            return this.name||"io7node";
-        }
-    });
+<script type="text/x-red" data-template-name="io7-hub">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-port"><i class="icon-tag"></i> Port</label>
+        <input type="text" id="node-input-port" placeholder="Port">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="io7-hub">
+    <p>io7 IOT node</p>
 </script>
 
-<script type="text/x-red" data-template-name="io7node">
+<script type="text/x-red" data-template-name="io7 in">
+    <div class="form-row">
+        <label for="node-input-hub"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.hub"></span></label>
+        <input type="text" id="node-input-hub">
+    </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
+<script type="text/x-red" data-help-name="io7 in">
+    <p>io7 IOT In node</p>
+</script>
 
-<script type="text/x-red" data-help-name="io7node">
-    <p>io7 IOT node</p>
+<script type="text/x-red" data-template-name="io7 out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="io7 out">
+    <p>io7 IOT Out node</p>
 </script>
 
 
-
 <script type="text/javascript">
-    RED.nodes.registerType('io7node in',{
-        category: 'input',
+    RED.nodes.registerType('io7-hub',{
+        category: 'config',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            port: {value:""}
+        },
+        inputs:0,
+        outputs:0,
+        icon: "file.png",
+        label: function() {
+            return this.name||"io7-hub";
+        }
+    });
+
+    RED.nodes.registerType('io7 in',{
+        category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")}
         },
         inputs:0,
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"io7node in";
+            return this.name||"io7 in";
         }
     });
-</script>
 
-<script type="text/x-red" data-template-name="io7node in">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="io7node in">
-    <p>io7 IOT In node</p>
-</script>
-
-
-
-<script type="text/javascript">
-    RED.nodes.registerType('io7node out',{
-        category: 'output',
+    RED.nodes.registerType('io7 out',{
+        category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
             name: {value:""}
@@ -67,18 +76,8 @@
         outputs:0,
         icon: "file.png",
         label: function() {
-            return this.name||"io7node out";
+            return this.name||"io7 out";
         }
     });
-</script>
 
-<script type="text/x-red" data-template-name="io7node out">
-    <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="io7node out">
-    <p>io7 IOT Out node</p>
 </script>
