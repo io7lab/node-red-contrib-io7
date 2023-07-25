@@ -1,5 +1,9 @@
 <script type="text/x-red" data-template-name="io7-hub">
     <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> io7 Hub</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+    <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
         <label for="node-input-port"><i class="icon-tag"></i> Port</label>
@@ -12,7 +16,7 @@
 
 <script type="text/x-red" data-template-name="io7 in">
     <div class="form-row">
-        <label for="node-input-hub"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.hub"></span></label>
+        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
         <input type="text" id="node-input-hub">
     </div>
     <div class="form-row">
@@ -25,6 +29,10 @@
 </script>
 
 <script type="text/x-red" data-template-name="io7 out">
+    <div class="form-row">
+        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
+        <input type="text" id="node-input-hub">
+    </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -70,7 +78,8 @@
         category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")}
         },
         inputs:1,
         outputs:0,
