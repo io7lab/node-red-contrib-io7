@@ -1,3 +1,6 @@
+<!--
+    io7-hub setting node
+-->
 <script type="text/x-red" data-template-name="io7-hub">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> io7 Hub</label>
@@ -14,48 +17,73 @@
     <p>io7 IOT node</p>
 </script>
 
+<!--
+    io7 in node
+-->
 <script type="text/x-red" data-template-name="io7 in">
     <div class="form-row">
-        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub></span></label>
+        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
         <input type="text" id="node-input-hub">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
+        <input type="text" id="node-input-devid" placeholder="Device Id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-evt"><i class="icon-tag"></i> Event</label>
+        <input type="text" id="node-input-evt" placeholder="Event">
+        <label for="node-input-fmt"><i class="icon-tag"></i> Format</label>
+        <input type="text" id="node-input-fmt" placeholder="Format">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos"><i class="fa fa-empire"></i> QoS</label>
+        <select id="node-input-qos" style="width:125px" value="0">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+
+        <p><label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-event"><i class="icon-tag"></i> Event</label>
-        <input type="text" id="node-input-event" placeholder="Event">
-        <label for="node-input-format"><i class="icon-tag"></i> Format</label>
-        <input type="text" id="node-input-format" placeholder="Format">
-    </div>
-    <div class="form-row">
-        <label for="node-input-qos"><i class="icon-tag"></i> QoS</label>
-        <input type="text" id="node-input-qos" placeholder="QoS">
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 in">
     <p>io7 IOT In node</p>
 </script>
 
+<!--
+    io7 out node
+-->
 <script type="text/x-red" data-template-name="io7 out">
     <div class="form-row">
         <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
         <input type="text" id="node-input-hub">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
+        <input type="text" id="node-input-devid" placeholder="Device Id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-evt"><i class="icon-tag"></i> Event</label>
+        <input type="text" id="node-input-evt" placeholder="Event">
+        <label for="node-input-fmt"><i class="icon-tag"></i> Format</label>
+        <input type="text" id="node-input-fmt" placeholder="Format">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos"><i class="fa fa-empire"></i> QoS</label>
+        <select id="node-input-qos" style="width:125px" value="0">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+        <label for="node-input-retain" class="icon-tag"><i class="fa fa-history"></i> Retain</label>
+        <select id="node-input-retain" style="width:125px" >
+            <option value=""></option>
+            <option value="false">False</option>
+            <option value="true">True</option>
+        </select>
+        <p><label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
-        <label for="node-input-event"><i class="icon-tag"></i> Event</label>
-        <input type="text" id="node-input-event" placeholder="Event">
-        <label for="node-input-format"><i class="icon-tag"></i> Format</label>
-        <input type="text" id="node-input-format" placeholder="Format">
-    </div>
-    <div class="form-row">
-        <label for="node-input-qos"><i class="icon-tag"></i> QoS</label>
-        <input type="text" id="node-input-qos" placeholder="QoS">
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 out">
@@ -63,6 +91,9 @@
 </script>
 
 
+<!--
+    io7 hub/in/out node registration
+-->
 <script type="text/javascript">
     RED.nodes.registerType('io7-hub',{
         category: 'config',
@@ -82,10 +113,11 @@
         color: 'rgb(0,155,255)',
         defaults: {
             name: {value:""},
+            devid: {value:""},
             hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
-            event: {value:""},
-            format: {value:""},
-            qos: {value:""}
+            evt: {value:""},
+            fmt: {value:""},
+            qos: {value:"0"}
         },
         inputs:0,
         outputs:1,
@@ -99,11 +131,13 @@
         category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            name: {value:""},
             hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
-            event: {value:""},
-            format: {value:""},
-            qos: {value:""}
+            name: {value:""},
+            devid: {value:""},
+            evt: {value:""},
+            fmt: {value:""},
+            qos: {value:"0"},
+            retain: {value:"false"}
         },
         inputs:1,
         outputs:0,

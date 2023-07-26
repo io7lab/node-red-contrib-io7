@@ -9,10 +9,10 @@ module.exports = function(RED) {
     function io7hub(config) {
         RED.nodes.createNode(this,config);
         const node = this;
-        client  = mqtt.connect('mqtt://' + config.host);
-        this.on('input', function(msg) {
-            msg.payload = msg.payload + 'qqq';
-            node.send(msg);
+        const mqtt_url = `mqtt://${config.host}:${config.port}`;
+        client  = mqtt.connect(mqtt_url);
+        client.on('connect', function (topic, message) {
+            node.log(`Connected to io7 hub: ${mqtt_url}`);
         });
     }
     RED.nodes.registerType("io7-hub",io7hub);
@@ -26,8 +26,7 @@ module.exports = function(RED) {
         //node.broker = config.broker;
 
         client.on('connect', function (topic, message) {
-            node.log('hub connected');
-            client.subscribe('iot3/abc/evt/+/fmt/+');
+            client.subscribe(`iot3/${config.devid}/evt/${config.evt}/fmt/${config.fmt}`);
             node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
         });
 
@@ -59,8 +58,7 @@ module.exports = function(RED) {
         });
         this.on('input', function(msg) {
             msg.payload = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload);
-            client.publish('iot3/abc/evt/status/fmt/json', msg.payload);
-            console.log('io7 =>' + msg.payload);
+            client.publish(`iot3/${config.devid}/evt/${config.evt}/fmt/${config.fmt}`, msg.payload);
             node.send(msg);
         });
     }
