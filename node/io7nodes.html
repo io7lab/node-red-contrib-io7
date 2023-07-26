@@ -4,10 +4,10 @@
         <input type="text" id="node-config-input-name">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-        <label for="node-input-port"><i class="icon-tag"></i> Port</label>
-        <input type="text" id="node-input-port" placeholder="Port">
+        <label for="node-config-input-host"><i class="icon-tag"></i> Host</label>
+        <input type="text" id="node-config-input-host" placeholder="Host">
+        <label for="node-config-input-port"><i class="icon-tag"></i> Port</label>
+        <input type="text" id="node-config-input-port" placeholder="Port">
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7-hub">
@@ -16,12 +16,22 @@
 
 <script type="text/x-red" data-template-name="io7 in">
     <div class="form-row">
-        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
+        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub></span></label>
         <input type="text" id="node-input-hub">
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-event"><i class="icon-tag"></i> Event</label>
+        <input type="text" id="node-input-event" placeholder="Event">
+        <label for="node-input-format"><i class="icon-tag"></i> Format</label>
+        <input type="text" id="node-input-format" placeholder="Format">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos"><i class="icon-tag"></i> QoS</label>
+        <input type="text" id="node-input-qos" placeholder="QoS">
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 in">
@@ -37,6 +47,16 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-event"><i class="icon-tag"></i> Event</label>
+        <input type="text" id="node-input-event" placeholder="Event">
+        <label for="node-input-format"><i class="icon-tag"></i> Format</label>
+        <input type="text" id="node-input-format" placeholder="Format">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos"><i class="icon-tag"></i> QoS</label>
+        <input type="text" id="node-input-qos" placeholder="QoS">
+    </div>
 </script>
 <script type="text/x-red" data-help-name="io7 out">
     <p>io7 IOT Out node</p>
@@ -46,13 +66,11 @@
 <script type="text/javascript">
     RED.nodes.registerType('io7-hub',{
         category: 'config',
-        color: '#a6bbcf',
         defaults: {
             name: {value:""},
+            host: {value:""},
             port: {value:""}
         },
-        inputs:0,
-        outputs:0,
         icon: "file.png",
         label: function() {
             return this.name||"io7-hub";
@@ -64,7 +82,10 @@
         color: 'rgb(0,155,255)',
         defaults: {
             name: {value:""},
-            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")}
+            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            event: {value:""},
+            format: {value:""},
+            qos: {value:""}
         },
         inputs:0,
         outputs:1,
@@ -79,7 +100,10 @@
         color: 'rgb(0,155,255)',
         defaults: {
             name: {value:""},
-            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")}
+            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            event: {value:""},
+            format: {value:""},
+            qos: {value:""}
         },
         inputs:1,
         outputs:0,

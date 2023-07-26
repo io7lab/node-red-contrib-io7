@@ -3,14 +3,13 @@
  */
 module.exports = function(RED) {
     let mqtt = require('mqtt')
-    let client  = mqtt.connect('mqtt://192.168.82.77')
+    let client;
 
-    function setUpNode(node, nodeCfg, inOrOut){ 
-    };
 
     function io7hub(config) {
         RED.nodes.createNode(this,config);
         const node = this;
+        client  = mqtt.connect('mqtt://' + config.host);
         this.on('input', function(msg) {
             msg.payload = msg.payload + 'qqq';
             node.send(msg);
@@ -23,10 +22,14 @@ module.exports = function(RED) {
     function io7in(config) {
         RED.nodes.createNode(this,config);
         const node = this;
-        node.broker = config.broker;
+        node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
+        //node.broker = config.broker;
 
-        /* interim */client.subscribe('node');
-node.log(config.port);
+        client.on('connect', function (topic, message) {
+            node.log('hub connected');
+            client.subscribe('iot3/abc/evt/+/fmt/+');
+            node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+        });
 
         const Actions = {
             CONNECT: 'connect',
@@ -37,12 +40,10 @@ node.log(config.port);
         };
         const allowableActions = Object.values(Actions);
 
-        //node.brokerConn = RED.nodes.getNode(node.broker);
-client.on('message', function (topic, message) {
-  node.log(message);
-  node.send({payload:message});
-});
-node.log(JSON.stringify(node));
+        node.brokerConn = RED.nodes.getNode(config.hub);
+        client.on('message', function (topic, message) {
+            node.send({payload:JSON.parse(message.toString('utf-8')),topic:topic});
+        });
     }
     RED.nodes.registerType("io7 in",io7in);
 /* 
@@ -52,9 +53,13 @@ node.log(JSON.stringify(node));
     function io7out(config) {
         RED.nodes.createNode(this,config);
         const node = this;
+        node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
+        client.on('connect', function (topic, message) {
+            node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+        });
         this.on('input', function(msg) {
-            msg.payload = JSON.stringify(msg.payload) + 'out';
-            client.publish('node', msg.payload);
+            msg.payload = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload);
+            client.publish('iot3/abc/evt/status/fmt/json', msg.payload);
             console.log('io7 =>' + msg.payload);
             node.send(msg);
         });
