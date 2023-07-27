@@ -33,7 +33,6 @@ module.exports = function(RED) {
         const node = this;
         node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
         let hubConn = RED.nodes.getNode(config.authentication).hubConn;
-        node.fmt = ( node.allFormats ) ? '+' : config.fmt;
 
         hubConn.on('connect', function (topic, message) { hubConn.subscribe(`iot3/${config.devid}/evt/${config.evt}/fmt/${config.fmt}`);
             node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
