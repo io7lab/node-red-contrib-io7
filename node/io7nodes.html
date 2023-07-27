@@ -149,7 +149,7 @@
             tls: {type:"tls-config",required: false,
                   label:RED._("node-red:mqtt.label.use-tls") },
         },
-        icon: "file.png",
+        icon: "processor.png",
         label: function() {
             return this.name||"io7-hub";
         },
@@ -166,7 +166,7 @@
 
     RED.nodes.registerType('io7 in',{
         category: 'io7',
-        color: 'rgb(0,155,255)',
+        color: 'rgb(255,165,0)',
         defaults: {
             name: {value:""},
             deviceId: {value:"+", required:true},
@@ -180,7 +180,7 @@
         },
         inputs:0,
         outputs:1,
-        icon: "file.png",
+        icon: "processor.png",
         label: function() {
             return this.name||"io7 in";
         },
@@ -211,7 +211,7 @@
 
     RED.nodes.registerType('io7 out',{
         category: 'io7',
-        color: 'rgb(0,155,255)',
+        color: 'rgb(255,165,0)',
         defaults: {
             authentication: {type:"io7-hub", required:true},
             name: {value:""},
@@ -223,7 +223,7 @@
         },
         inputs:1,
         outputs:0,
-        icon: "file.png",
+        icon: "processor.png",
         label: function() {
             return this.name||"io7 out";
         }
