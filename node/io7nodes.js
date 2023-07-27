@@ -7,7 +7,10 @@ module.exports = function(RED) {
     function io7hub(config) {
         RED.nodes.createNode(this,config);
         const node = this;
-        const mqtt_url = `mqtts://${config.host}:${config.port}`;
+        const protocol = config.useTLS ? 'mqtts' : 'mqtt';
+        const port = config.knownPort ? config.useTLS ? 8883 : 1883 : config.port;
+        const mqtt_url = `${protocol}://${config.host}:${port}`;
+    node.log(mqtt_url);
 
         node.hubConn = mqtt.connect(mqtt_url, {
             username: config.apiKey,

@@ -19,8 +19,14 @@
         <input type="text" id="node-config-input-host" placeholder="Host" style="width:300px;">
     </div>
     <div class="form-row">
+        <label for="node-config-input-useTLS" style="width:130px;">Use TLS</label>
+        <input type="checkbox" id="node-config-input-useTLS" style="width:10px;">
+    </div>
+    <div class="form-row">
         <label for="node-config-input-port" style="width:130px;"><i class="fa fa-plug"></i> Port</label>
-        <input type="text" id="node-config-input-port" placeholder="Port" style="width:300px;">
+        <input type="checkbox" id="node-config-input-knownPort" style="width:10px;">
+        <label for="node-config-input-knownPort" style="width:130px;">Well Known Port or </label>
+        <input type="text" id="node-config-input-port" placeholder="Port" style="margin-left:50px;width:100px;" disabled>
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7-hub">
@@ -130,14 +136,25 @@
         category: 'config',
         defaults: {
             name: {value:""},
-            host: {value:""},
+            host: {value:"mqtt"},
             apiKey: {value:""},
             apiToken: {value:""},
-            port: {value:""}
+            useTLS: {value:false},
+            knownPort: {value:true},
+            port: {value:"1883"}
         },
         icon: "file.png",
         label: function() {
             return this.name||"io7-hub";
+        },
+        oneditprepare: function () {
+            $("#node-config-input-knownPort").change(function () {
+                if ($("#node-config-input-knownPort").is(":checked")) {
+                    $("#node-config-input-port").prop("disabled", true);
+                } else {
+                    $("#node-config-input-port").prop("disabled", false);
+                }
+            });
         }
     });
 
