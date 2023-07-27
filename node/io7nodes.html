@@ -162,24 +162,27 @@
             return this.name||"io7 in";
         },
         oneditprepare: function () {
-            var allDevicesChecked = $("#node-input-allDevices").is(":checked");
-            if (allDevicesChecked) {
-                $("#node-input-deviceId").prop("disabled", true);
-            } else {
-                $("#node-input-deviceId").prop("disabled", false);
-            }
-            var allEventsChecked = $("#node-input-allEvents").is(":checked");
-            if (allEventsChecked) {
-                $("#node-input-evt").prop("disabled", true);
-            } else {
-                $("#node-input-evt").prop("disabled", false);
-            }
-            var allFormatsChecked = $("#node-input-allFormats").is(":checked");
-            if (allFormatsChecked) {
-                $("#node-input-fmt").prop("disabled", true);
-            } else {
-                $("#node-input-fmt").prop("disabled", false);
-            }
+            $("#node-input-allDevices").change(function () {
+                if ($("#node-input-allDevices").is(":checked")) {
+                    $("#node-input-deviceId").prop("disabled", true);
+                } else {
+                    $("#node-input-deviceId").prop("disabled", false);
+                }
+            });
+            $("#node-input-allEvents").change(function () {
+                if ($("#node-input-allEvents").is(":checked")) {
+                    $("#node-input-evt").prop("disabled", true);
+                } else {
+                    $("#node-input-evt").prop("disabled", false);
+                }
+            });
+            $("#node-input-allFormats").change(function () {
+                if ($("#node-input-allFormats").is(":checked")) {
+                    $("#node-input-fmt").prop("disabled", true);
+                } else {
+                    $("#node-input-fmt").prop("disabled", false);
+                }
+            });
         }
     });
 
