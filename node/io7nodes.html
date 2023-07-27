@@ -106,8 +106,8 @@
         <label for="node-input-retain" class="icon-tag" style="margin-left:50px;width:80px;"><i class="fa fa-history"></i> Retain</label>
         <select id="node-input-retain" style="width:90px" >
             <option value=""></option>
-            <option value="false">False</option>
-            <option value="true">True</option>
+            <option value="false">false</option>
+            <option value="true">true</option>
         </select>
     </div>
     <div class="form-row">
@@ -148,7 +148,7 @@
         defaults: {
             name: {value:""},
             devid: {value:""},
-            authentication: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            authentication: {type:"io7-hub", required:true},
             evt: {value:""},
             fmt: {value:""},
             qos: {value:"0"}
@@ -165,7 +165,7 @@
         category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            authentication: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            authentication: {type:"io7-hub", required:true},
             name: {value:""},
             devid: {value:""},
             cmd: {value:""},
