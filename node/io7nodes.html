@@ -7,6 +7,12 @@
         <input type="text" id="node-config-input-name">
     </div>
     <div class="form-row">
+        <label for="node-config-input-appid"><i class="icon-tag"></i> App Id</label>
+        <input type="text" id="node-config-input-appid" placeholder="App Id">
+        <label for="node-config-input-token"><i class="icon-tag"></i> Token</label>
+        <input type="password" id="node-config-input-token" placeholder="Token">
+    </div>
+    <div class="form-row">
         <label for="node-config-input-host"><i class="icon-tag"></i> Host</label>
         <input type="text" id="node-config-input-host" placeholder="Host">
         <label for="node-config-input-port"><i class="icon-tag"></i> Port</label>
@@ -64,8 +70,8 @@
         <input type="text" id="node-input-devid" placeholder="Device Id">
     </div>
     <div class="form-row">
-        <label for="node-input-evt"><i class="icon-tag"></i> Event</label>
-        <input type="text" id="node-input-evt" placeholder="Event">
+        <label for="node-input-cmd"><i class="icon-tag"></i> Command</label>
+        <input type="text" id="node-input-cmd" placeholder="power">
         <label for="node-input-fmt"><i class="icon-tag"></i> Format</label>
         <input type="text" id="node-input-fmt" placeholder="Format">
     </div>
@@ -100,6 +106,8 @@
         defaults: {
             name: {value:""},
             host: {value:""},
+            appid: {value:""},
+            token: {value:""},
             port: {value:""}
         },
         icon: "file.png",
@@ -134,7 +142,7 @@
             hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
             name: {value:""},
             devid: {value:""},
-            evt: {value:""},
+            cmd: {value:""},
             fmt: {value:""},
             qos: {value:"0"},
             retain: {value:"false"}

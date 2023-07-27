@@ -9,8 +9,14 @@ module.exports = function(RED) {
     function io7hub(config) {
         RED.nodes.createNode(this,config);
         const node = this;
-        const mqtt_url = `mqtt://${config.host}:${config.port}`;
-        client  = mqtt.connect(mqtt_url);
+        const mqtt_url = `mqtts://${config.host}:${config.port}`;
+        client  = mqtt.connect(mqtt_url, {
+            username: config.appid,
+            clientId: config.appid,
+            password: config.token,
+            clean: true,
+            rejectUnauthorized: false
+        });
         client.on('connect', function (topic, message) {
             node.log(`Connected to io7 hub: ${mqtt_url}`);
         });
@@ -58,7 +64,7 @@ module.exports = function(RED) {
         });
         this.on('input', function(msg) {
             msg.payload = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload);
-            client.publish(`iot3/${config.devid}/evt/${config.evt}/fmt/${config.fmt}`, msg.payload);
+            client.publish(`iot3/${config.devid}/cmd/${config.evt}/fmt/${config.fmt}`, msg.payload);
             node.send(msg);
         });
     }
