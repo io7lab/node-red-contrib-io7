@@ -3,7 +3,6 @@
  */
 module.exports = function(RED) {
     let mqtt = require('mqtt')
-    let connections = {};
 
     function io7hub(config) {
         RED.nodes.createNode(this,config);
@@ -18,8 +17,7 @@ module.exports = function(RED) {
             rejectUnauthorized: false
         });
         node.hubConn.on('connect', function (topic, message) {
-            node.log(`Connected to io7 hub: ${mqtt_url}`);
-            connections[node.name] = node.hubConn;
+            node.log(`Connected to io7 hub: ${mqtt_url} with ${config.appid}`);
         });
         node._closeCallbacks.push(function() {
             node.hubConn.end();
