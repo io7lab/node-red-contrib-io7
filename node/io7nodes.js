@@ -57,6 +57,10 @@ module.exports = function(RED) {
         hubConn.on('message', function (topic, message) {
             node.send({payload:JSON.parse(message.toString('utf-8')),topic:topic});
         });
+
+        hubConn.on('error', function (topic, message) {
+            node.status({ fill: "red", shape: "ring", text: "node-red:common.status.disconnected" });
+        });
     }
     RED.nodes.registerType("io7 in",io7in);
 /* 
@@ -68,15 +72,6 @@ module.exports = function(RED) {
         const node = this;
         node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
 
-        let hub = RED.nodes.getNode(config.authentication);
-        if (hub == null || hub.hubConn == null) {
-            return;
-        }
-        let hubConn = hub.hubConn;
-
-        hubConn.on('connect', function (topic, message) {
-            node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
-        });
         this.on('input', function(msg) {
             msg.payload = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload);
             hubConn.publish(
@@ -87,6 +82,19 @@ module.exports = function(RED) {
                 }
             );
             node.send(msg);
+        });
+
+        let hub = RED.nodes.getNode(config.authentication);
+        if (hub == null || hub.hubConn == null) {
+            return;
+        }
+        let hubConn = hub.hubConn;
+
+        hubConn.on('connect', function (topic, message) {
+            node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+        });
+        hubConn.on('error', function (topic, message) {
+            node.status({ fill: "red", shape: "ring", text: "node-red:common.status.disconnected" });
         });
     }
     RED.nodes.registerType("io7 out",io7out);
