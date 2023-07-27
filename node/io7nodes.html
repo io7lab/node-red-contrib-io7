@@ -28,8 +28,8 @@
 -->
 <script type="text/x-red" data-template-name="io7 in">
     <div class="form-row">
-        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
-        <input type="text" id="node-input-hub">
+        <label for="node-input-apikey"><i class="fa fa-key"></i> Application</label>
+        <input type="text" id="node-input-apikey">
     </div>
     <div class="form-row">
         <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
@@ -62,8 +62,8 @@
 -->
 <script type="text/x-red" data-template-name="io7 out">
     <div class="form-row">
-        <label for="node-input-hub"><i class="fa fa-globe"></i> io7 Hub</label>
-        <input type="text" id="node-input-hub">
+        <label for="node-input-apikey"><i class="fa fa-key"></i> Application</label>
+        <input type="text" id="node-input-apikey">
     </div>
     <div class="form-row">
         <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
@@ -122,7 +122,7 @@
         defaults: {
             name: {value:""},
             devid: {value:""},
-            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            apikey: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
             evt: {value:""},
             fmt: {value:""},
             qos: {value:"0"}
@@ -139,7 +139,7 @@
         category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            hub: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            apikey: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
             name: {value:""},
             devid: {value:""},
             cmd: {value:""},

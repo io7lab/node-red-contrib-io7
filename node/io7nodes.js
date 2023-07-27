@@ -32,7 +32,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         const node = this;
         node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
-        let hubConn = RED.nodes.getNode(config.hub).hubConn;
+        let hubConn = RED.nodes.getNode(config.apikey).hubConn;
 
         hubConn.on('connect', function (topic, message) { hubConn.subscribe(`iot3/${config.devid}/evt/${config.evt}/fmt/${config.fmt}`);
             node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
@@ -52,7 +52,7 @@ module.exports = function(RED) {
         const node = this;
         node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
 
-        let hub = RED.nodes.getNode(config.hub);
+        let hub = RED.nodes.getNode(config.apikey);
         if (hub == null || hub.hubConn == null) {
             return;
         }
