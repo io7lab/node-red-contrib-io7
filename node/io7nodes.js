@@ -72,7 +72,13 @@ module.exports = function(RED) {
         });
         this.on('input', function(msg) {
             msg.payload = typeof msg.payload === 'string' ? msg.payload : JSON.stringify(msg.payload);
-            hubConn.publish(`iot3/${config.deviceId}/cmd/${config.cmd}/fmt/${config.fmt}`, msg.payload);
+            hubConn.publish(
+                `iot3/${config.deviceId}/cmd/${config.cmd}/fmt/${config.fmt}`,
+                msg.payload,
+                {
+                    qos: parseInt(config.qos), retain: config.retain === "true"
+                }
+            );
             node.send(msg);
         });
     }
