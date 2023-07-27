@@ -36,17 +36,17 @@
         <input type="text" id="node-input-authentication" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-input-devid" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
+        <label for="node-input-deviceId" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
         <input type="checkbox" id="node-input-allDevices" style="width:10px;">
         <label for="node-input-allDevicesLabel" style="width:40px;">All or </label>
-        <input type="text" id="node-input-devid" placeholder="device id e.g. client123" style="width:240px;">
+        <input type="text" id="node-input-deviceId" placeholder="device id e.g. client123" style="width:240px;" disabled>
     </div>
 
     <div class="form-row">
         <label for="node-input-evt" style="width:130px;"><i class="fa fa-tasks"></i> Event</label>
         <input type="checkbox" id="node-input-allEvents" style="width:10px;" >
         <label for="node-input-allEventsLabel" style="width:40px;">All or </label>
-        <input type="text" id="node-input-evt" placeholder="event type e.g. status" style="width:240px;">
+        <input type="text" id="node-input-evt" placeholder="event type e.g. status" style="width:240px;" disabled>
     </div>
     <div class="form-row">
         <label for="node-input-fmt" style="width:130px;"><i class="fa fa-file"></i> Format</label>
@@ -83,8 +83,8 @@
         <input type="text" id="node-input-authentication" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-input-devid" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
-        <input type="text" id="node-input-devid" style="width:300px;" placeholder="Device Id">
+        <label for="node-input-deviceId" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
+        <input type="text" id="node-input-deviceId" style="width:300px;" placeholder="Device Id">
     </div>
     <div class="form-row">
         <label for="node-input-cmd" style="width:130px;"><i class="fa fa-legal"></i> Command Type</label>
@@ -125,6 +125,7 @@
     io7 hub/in/out node registration
 -->
 <script type="text/javascript">
+
     RED.nodes.registerType('io7-hub',{
         category: 'config',
         defaults: {
@@ -145,13 +146,14 @@
         color: 'rgb(0,155,255)',
         defaults: {
             name: {value:""},
-            devid: {value:"+"},
+            deviceId: {value:"+", required:true},
             authentication: {type:"io7-hub", required:true},
             evt: {value:"+"},
             fmt: {value:"json"},
             qos: {value:"0"},
             allDevices: {value: true},
             allEvents: {value: true},
+            allFormats: {value: false},
         },
         inputs:0,
         outputs:1,
@@ -160,7 +162,24 @@
             return this.name||"io7 in";
         },
         oneditprepare: function () {
-            console.log('hi');
+            var allDevicesChecked = $("#node-input-allDevices").is(":checked");
+            if (allDevicesChecked) {
+                $("#node-input-deviceId").prop("disabled", true);
+            } else {
+                $("#node-input-deviceId").prop("disabled", false);
+            }
+            var allEventsChecked = $("#node-input-allEvents").is(":checked");
+            if (allEventsChecked) {
+                $("#node-input-evt").prop("disabled", true);
+            } else {
+                $("#node-input-evt").prop("disabled", false);
+            }
+            var allFormatsChecked = $("#node-input-allFormats").is(":checked");
+            if (allFormatsChecked) {
+                $("#node-input-fmt").prop("disabled", true);
+            } else {
+                $("#node-input-fmt").prop("disabled", false);
+            }
         }
     });
 
@@ -170,7 +189,7 @@
         defaults: {
             authentication: {type:"io7-hub", required:true},
             name: {value:""},
-            devid: {value:""},
+            deviceId: {value:"", required:true},
             cmd: {value:""},
             fmt: {value:"json"},
             qos: {value:"0"},
