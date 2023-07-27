@@ -34,8 +34,17 @@ module.exports = function(RED) {
         node.status({fill:"yellow",shape:"ring",text:"node-red:common.status.connecting"});
         let hubConn = RED.nodes.getNode(config.authentication).hubConn;
 
-        hubConn.on('connect', function (topic, message) { hubConn.subscribe(`iot3/${config.deviceId}/evt/${config.evt}/fmt/${config.fmt}`);
-            node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+        hubConn.on('connect', function (topic, message) {
+            let deviceId = config.allDevices ? '+' : config.deviceId;
+            let event = config.allEvents ? '+' : config.evt;
+            let format = config.allFormats ? '+' : config.fmt;
+            hubConn.subscribe(
+                `iot3/${deviceId}/evt/${event}/fmt/${format}`,
+                {qos: parseInt(config.qos)}
+            );
+            node.status({
+                fill:"green",shape:"dot",text:"node-red:common.status.connected"
+            });
         });
 
         hubConn.on('message', function (topic, message) {
