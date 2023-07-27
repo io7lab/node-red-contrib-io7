@@ -10,15 +10,19 @@ module.exports = function(RED) {
         const protocol = config.useTLS ? 'mqtts' : 'mqtt';
         const port = config.knownPort ? config.useTLS ? 8883 : 1883 : config.port;
         const mqtt_url = `${protocol}://${config.host}:${port}`;
-    node.log(mqtt_url);
 
-        node.hubConn = mqtt.connect(mqtt_url, {
+        let mqttOptions = {
             username: config.apiKey,
             clientId: config.apiKey,
             password: config.apiToken,
             clean: true,
-            rejectUnauthorized: false
-        });
+            rejectUnauthorized: true
+        };
+        let tlsNode = RED.nodes.getNode(config.tls);
+        if (tlsNode) {
+            tlsNode.addTLSOptions(mqttOptions);
+        }  
+        node.hubConn = mqtt.connect(mqtt_url, mqttOptions);
         node.hubConn.on('connect', function (topic, message) {
             node.log(`Connected to io7 hub: ${mqtt_url} with ${config.apiKey}`);
         });
