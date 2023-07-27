@@ -3,20 +3,24 @@
 -->
 <script type="text/x-red" data-template-name="io7-hub">
     <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-tag"></i> io7 Hub</label>
-        <input type="text" id="node-config-input-name">
+        <label for="node-config-input-name" style="width:130px;"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name" style="width:300px">
     </div>
     <div class="form-row">
-        <label for="node-config-input-appid"><i class="icon-tag"></i> App Id</label>
-        <input type="text" id="node-config-input-appid" placeholder="App Id">
-        <label for="node-config-input-token"><i class="icon-tag"></i> Token</label>
-        <input type="password" id="node-config-input-token" placeholder="Token">
+        <label for="node-config-input-apiKey" style="width:130px;"><i class="fa fa-user-secret"></i> API Key</label>
+        <input type="text" id="node-config-input-apiKey" placeholder="API Key" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-config-input-host"><i class="icon-tag"></i> Host</label>
-        <input type="text" id="node-config-input-host" placeholder="Host">
-        <label for="node-config-input-port"><i class="icon-tag"></i> Port</label>
-        <input type="text" id="node-config-input-port" placeholder="Port">
+        <label for="node-config-input-apiToken" style="width:130px;"><i class="fa fa-key"></i> API Token</label>
+        <input type="password" id="node-config-input-apiToken" placeholder="API Token" style="width:300px;">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host" style="width:130px;"><i class="fa fa-server"></i> Host</label>
+        <input type="text" id="node-config-input-host" placeholder="Host" style="width:300px;">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port" style="width:130px;"><i class="fa fa-plug"></i> Port</label>
+        <input type="text" id="node-config-input-port" placeholder="Port" style="width:300px;">
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7-hub">
@@ -28,29 +32,42 @@
 -->
 <script type="text/x-red" data-template-name="io7 in">
     <div class="form-row">
-        <label for="node-input-apikey"><i class="fa fa-key"></i> Application</label>
-        <input type="text" id="node-input-apikey">
+        <label for="node-input-authentication" style="width:130px;"><i class="fa fa-lock"></i> Authentication</label>
+        <input type="text" id="node-input-authentication" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
-        <input type="text" id="node-input-devid" placeholder="Device Id">
+        <label for="node-input-devid" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
+        <input type="checkbox" id="node-input-allDevices" style="width:10px;">
+        <label for="node-input-allDevicesLabel" style="width:40px;">All or </label>
+        <input type="text" id="node-input-devid" placeholder="device id e.g. client123" style="width:240px;">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-evt" style="width:130px;"><i class="fa fa-tasks"></i> Event</label>
+        <input type="checkbox" id="node-input-allEvents" style="width:10px;" >
+        <label for="node-input-allEventsLabel" style="width:40px;">All or </label>
+        <input type="text" id="node-input-evt" placeholder="event type e.g. status" style="width:240px;">
     </div>
     <div class="form-row">
-        <label for="node-input-evt"><i class="icon-tag"></i> Event</label>
-        <input type="text" id="node-input-evt" placeholder="Event">
-        <label for="node-input-fmt"><i class="icon-tag"></i> Format</label>
-        <input type="text" id="node-input-fmt" placeholder="Format">
+        <label for="node-input-fmt" style="width:130px;"><i class="fa fa-file"></i> Format</label>
+        <input type="checkbox" id="node-input-allFormats" style="width:10px;" >
+        <label for="node-input-allFormatsLabel" style="width:40px;">All or </label>
+        <input type="text" id="node-input-fmt" placeholder="format e.g. json" style="width:240px;">
     </div>
     <div class="form-row">
-        <label for="node-input-qos"><i class="fa fa-empire"></i> QoS</label>
-        <select id="node-input-qos" style="width:125px" value="0">
+        <label for="node-input-qos" style="width:130px;"><i class="fa fa-empire"></i> QoS</label>
+        <select id="node-input-qos" style="width:70px" value="0">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
-
-        <p><label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name" style="width:130px;"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" style="width:300px">
+    </div>
+    <div class="form-tips">
+        io7 IOT In node<br/>
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 in">
@@ -62,34 +79,43 @@
 -->
 <script type="text/x-red" data-template-name="io7 out">
     <div class="form-row">
-        <label for="node-input-apikey"><i class="fa fa-key"></i> Application</label>
-        <input type="text" id="node-input-apikey">
+        <label for="node-input-authentication" style="width:130px;"><i class="fa fa-lock"></i> Authentication</label>
+        <input type="text" id="node-input-authentication" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-input-devid"><i class="icon-tag"></i> Device Id</label>
-        <input type="text" id="node-input-devid" placeholder="Device Id">
+        <label for="node-input-devid" style="width:130px;"><i class="fa fa-street-view"></i> Device Id</label>
+        <input type="text" id="node-input-devid" style="width:300px;" placeholder="Device Id">
     </div>
     <div class="form-row">
-        <label for="node-input-cmd"><i class="icon-tag"></i> Command</label>
-        <input type="text" id="node-input-cmd" placeholder="power">
-        <label for="node-input-fmt"><i class="icon-tag"></i> Format</label>
-        <input type="text" id="node-input-fmt" placeholder="Format">
+        <label for="node-input-cmd" style="width:130px;"><i class="fa fa-legal"></i> Command Type</label>
+        <input type="text" id="node-input-cmd" placeholder="power" style="width:300px;">
     </div>
     <div class="form-row">
-        <label for="node-input-qos"><i class="fa fa-empire"></i> QoS</label>
-        <select id="node-input-qos" style="width:125px" value="0">
+        <label for="node-input-fmt" style="width:130px;"><i class="fa fa-file"></i> Format</label>
+        <input type="checkbox" id="node-input-allFormats" style="width:10px;" >
+        <label for="node-input-allFormatsLabel" style="width:40px;">All or </label>
+        <input type="text" id="node-input-fmt" placeholder="format e.g. json" style="width:240px;">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos" style="width:130px;"><i class="fa fa-empire"></i> QoS</label>
+        <select id="node-input-qos" style="width:70px" value="0">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
-        <label for="node-input-retain" class="icon-tag"><i class="fa fa-history"></i> Retain</label>
-        <select id="node-input-retain" style="width:125px" >
+        <label for="node-input-retain" class="icon-tag" style="margin-left:50px;width:80px;"><i class="fa fa-history"></i> Retain</label>
+        <select id="node-input-retain" style="width:90px" >
             <option value=""></option>
             <option value="false">False</option>
             <option value="true">True</option>
         </select>
-        <p><label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name" style="width:130px;"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" style="width:300px;">
+    </div>
+    <div class="form-tips">
+        io7 IOT Out node<br/>
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 out">
@@ -106,8 +132,8 @@
         defaults: {
             name: {value:""},
             host: {value:""},
-            appid: {value:""},
-            token: {value:""},
+            apiKey: {value:""},
+            apiToken: {value:""},
             port: {value:""}
         },
         icon: "file.png",
@@ -122,7 +148,7 @@
         defaults: {
             name: {value:""},
             devid: {value:""},
-            apikey: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            authentication: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
             evt: {value:""},
             fmt: {value:""},
             qos: {value:"0"}
@@ -139,7 +165,7 @@
         category: 'io7',
         color: 'rgb(0,155,255)',
         defaults: {
-            apikey: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
+            authentication: {type:"io7-hub", required:true, label:RED._("node-red:mqtt.label.hub")},
             name: {value:""},
             devid: {value:""},
             cmd: {value:""},
