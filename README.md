@@ -1,6 +1,6 @@
 # node-red-contrib-io7
 
-This is the NodeRED io7 IOT Platform node. 
+This is the NodeRED io7 IOT Platform node(https://github.com/io7lab/io7-platform-cloud.git).
 
 An IOT Application can be built for the io7 IOT Platform with this node.
 
