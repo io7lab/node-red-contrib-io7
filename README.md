@@ -5,6 +5,8 @@ This is the NodeRED io7 IOT Platform node(https://github.com/io7lab/io7-platform
 An IOT Application can be built for the io7 IOT Platform with this node.
 
 # Installation
+_This has yet to be registered to the flows.nodered.org. Meanwhile it can be installed from the github as following._
+
 On a terminal or a command prompt under the nodered folder, run the following command 
 
 `npm i install https://github.com/io7lab/node-red-contrib-io7.git`
