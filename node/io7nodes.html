@@ -141,13 +141,15 @@
         defaults: {
             name: {value:""},
             host: {value:"mqtt"},
-            apiKey: {value:""},
-            apiToken: {value:""},
             useTLS: {value:false},
             knownPort: {value:true},
             port: {value:"1883"},
             tls: {type:"tls-config",required: false,
                   label:RED._("node-red:mqtt.label.use-tls") },
+        },
+        credentials: {
+            apiKey: {type:"text"},
+            apiToken: {type: "password"}
         },
         icon: "processor.png",
         label: function() {

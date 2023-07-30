@@ -12,9 +12,9 @@ module.exports = function(RED) {
         const mqtt_url = `${protocol}://${config.host}:${port}`;
 
         let mqttOptions = {
-            username: config.apiKey,
-            clientId: config.apiKey,
-            password: config.apiToken,
+            username: node.credentials.apiKey,
+            clientId: node.credentials.apiKey,
+            password: node.credentials.apiToken,
             clean: true,
             rejectUnauthorized: true
         };
@@ -30,7 +30,12 @@ module.exports = function(RED) {
             node.hubConn.end();
         })
     }
-    RED.nodes.registerType("io7-hub",io7hub);
+    RED.nodes.registerType("io7-hub",io7hub,{
+        credentials: {
+            apiKey: {type:"text"},
+            apiToken: {type: "password"}
+        }
+    });
 /* 
  *
  * io7 in node
