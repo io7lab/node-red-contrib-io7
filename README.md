@@ -11,4 +11,4 @@ On a terminal or a command prompt under the nodered folder, run the following co
 
 restart the nodered, and the io7 in/out nodes will appear on the palette as below.
 
-<img width="726" alt="Screenshot 2023-07-27 at 11 54 54 PM" src="https://github.com/io7lab/node-red-contrib-io7/assets/13171662/1f5c37e5-63a2-4cc9-ac9a-02698edc279c">
+<img width="726" alt="Screenshot 2023-07-27 at 11 54 54 PM" src="https://github.com/io7lab/node-red-contrib-io7/assets/13171662/46cba79e-889b-4107-a229-727121e96e4b">
