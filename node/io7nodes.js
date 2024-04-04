@@ -37,6 +37,19 @@ module.exports = function(RED) {
         }
     });
 /* 
+ * Utility function to match a topic against a filter. This was copied from the NodeRED Core MQTT node
+ * 
+ */
+    function matchTopic(ts,t) {
+        if (ts == "#") {
+            return true;
+        } else if(ts.startsWith("$share")){
+            ts = ts.replace(/^\$share\/[^#+/]+\/(.*)/g,"$1");
+        }
+        var re = new RegExp("^"+ts.replace(/([\[\]\?\(\)\\\\$\^\*\.|])/g,"\\$1").replace(/\+/g,"[^/]+").replace(/\/#$/,"(\/.*)?")+"$");
+        return re.test(t);
+    }
+/* 
  *
  * io7 in node
  */
@@ -60,7 +73,9 @@ module.exports = function(RED) {
         });
 
         hubConn.on('message', function (topic, message) {
-            node.send({payload:JSON.parse(message.toString('utf-8')),topic:topic});
+            if (matchTopic(`iot3/${config.deviceId}/evt/${config.evt}/fmt/${config.fmt}`, topic)) {
+                node.send({payload:JSON.parse(message.toString('utf-8')),topic:topic});
+            }
         });
 
         hubConn.on('error', function (topic, message) {
