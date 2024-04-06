@@ -85,7 +85,35 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 in">
-    <p>io7 IOT In node</p>
+    <p>This is the io7 IOT In node. It can be used to receive messages from io7 IOT Devices.</p>
+    <h3>Outputs</h3>
+    <dl class='message-properties'>
+        <dt>payload <span class="property-type">string | buffer</span></dt>
+        <dd>a string unless detected as a binary buffer.</dd>
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>the MQTT topic, uses / as a hierarchy separator.</dd>
+        <dt>qos <span class="property-type">number</span> </dt>
+        <dd>0, fire and forget - 1, at least once - 2, once and once only.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <dl class='message-properties'>
+        <dt>Authentication</dt><dd>Authentication node</dd>
+        <dt>Device Id</dt><dd>Device Id e.g. client123</dd>
+        <dt>Event</dt><dd>Event type e.g. status</dd>
+        <dt>Format</dt><dd>Format of the message e.g. json
+            <ul>
+                <li>json : JavaScript Object Notation</li>
+                <li>utf8 : UTF-8 </li>
+                <li>utf-8: UTF-8 </li>
+                <li>base64 : Base64 </li>
+                <li>buffer : Buffer </li>
+                <li>+ : All</li>
+            </ul>
+        </dd>
+    <dt>QoS</dt><dd>Quality of Service</dt>
+    <dt>Name</dt><dd>Name of the node<</dt>
+    </dl>
 </script>
 
 <!--
@@ -131,7 +159,37 @@
     </div>
 </script>
 <script type="text/x-red" data-help-name="io7 out">
-    <p>io7 IOT Out node</p>
+    <p>This is the io7 IOT Out node. It can be used to send messages to an io7 IOT Device.</p>
+    <h3>Inputs</h3>
+    <dl class='message-properties'>
+        <dt>payload <span class="property-type">string | buffer</span></dt>
+        <dd>a string unless detected as a binary buffer.</dd>
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>the MQTT topic, uses / as a hierarchy separator.</dd>
+        <dt>qos <span class="property-type">number</span> </dt>
+        <dd>0, fire and forget - 1, at least once - 2, once and once only.</dd>
+        <dt>retain <span class="property-type">boolean</span></dt>
+        <dd>true indicates the message was retained and may be old.</dd>
+    </dl>
+
+    <h3>Details</h3>
+    <dl class='message-properties'>
+        <dt>Authentication</dt><dd>Authentication node</dd>
+        <dt>Device Id</dt><dd>Device Id e.g. client123</dd>
+        <dt>Event</dt><dd>Event type e.g. status</dd>
+        <dt>Format</dt><dd>Format of the message e.g. json
+            <ul>
+                <li>json : JavaScript Object Notation</li>
+                <li>utf8 : UTF-8 </li>
+                <li>utf-8: UTF-8 </li>
+                <li>base64 : Base64 </li>
+                <li>buffer : Buffer </li>
+                <li>+ : All</li>
+            </ul>
+        </dd>
+    <dt>QoS</dt><dd>Quality of Service</dt>
+    <dt>Name</dt><dd>Name of the node<</dt>
+    </dl>
 </script>
 
 

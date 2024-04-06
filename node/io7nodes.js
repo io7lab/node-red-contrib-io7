@@ -74,7 +74,21 @@ module.exports = function(RED) {
 
         hubConn.on('message', function (topic, message) {
             if (matchTopic(`iot3/${config.deviceId}/evt/${config.evt}/fmt/${config.fmt}`, topic)) {
-                node.send({payload:JSON.parse(message.toString('utf-8')),topic:topic});
+                try {
+                    if (config.fmt === 'buffer' || config.fmt === 'base64') {
+                        node.send({ payload: message, topic: topic, qos: config.qos});
+                    } else if (['json', '+'].includes(config.fmt)) {
+                        try {
+                            node.send({ payload: JSON.parse(message.toString('utf-8')), topic: topic, qos: config.qos });
+                        } catch (e) {
+                            node.send({ payload: message.toString('utf-8'), topic: topic, qos: config.qos });
+                        }
+                    } else if (['utf8', 'utf-8'].includes(config.fmt)) {
+                        node.send({ payload: message.toString('utf-8'), topic: topic, qos: config.qos });
+                    }
+                } catch (e) {
+                    console.log('Error parsing message: ', e.message);
+                }
             }
         });
 
