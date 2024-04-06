@@ -32,6 +32,10 @@
         <label for="node-config-row-tls" style="width:130px;"><i class="fa fa-certificate"></i> TLS Config</label>
         <span id="node-config-row-tls"><input style="width: 320px;" type="text" id="node-config-input-tls"></span>              
     </div>
+    <div class="form-row">
+        <label for="node-config-input-cliendid" style="width:130px;"><i class="fa fa-tag"></i> Client Id</label>
+        <input type="text" id="node-config-input-clientid" placeholder="leave blank for 'io7_{auto generated}'" style="width:300px">
+    </div>
 </script>
 <script type="text/x-red" data-help-name="io7-hub">
     <p>io7 IOT node</p>
@@ -146,6 +150,7 @@
             port: {value:"1883"},
             tls: {type:"tls-config",required: false,
                   label:RED._("node-red:mqtt.label.use-tls") },
+            clientid: {value:""}
         },
         credentials: {
             apiKey: {type:"text"},

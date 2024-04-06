@@ -13,7 +13,7 @@ module.exports = function(RED) {
 
         let mqttOptions = {
             username: node.credentials.apiKey,
-            clientId: node.credentials.apiKey,
+            clientId: node.clientid || 'io7_' + RED.util.generateId(),
             password: node.credentials.apiToken,
             clean: true,
             rejectUnauthorized: true
