@@ -88,12 +88,18 @@
     <p>This is the io7 IOT In node. It can be used to receive messages from io7 IOT Devices.</p>
     <h3>Outputs</h3>
     <dl class='message-properties'>
-        <dt>payload <span class="property-type">string | buffer</span></dt>
-        <dd>a string unless detected as a binary buffer.</dd>
+        <dt>payload <span class="property-type">json | utf8 | buffer</span></dt>
+        <dd>JSON Object, a UTF-8, or Binary/Base64 if Format is json, utf8, or buffer/base64 respectively</dd>
         <dt>topic <span class="property-type">string</span></dt>
         <dd>the MQTT topic, uses / as a hierarchy separator.</dd>
         <dt>qos <span class="property-type">number</span> </dt>
-        <dd>0, fire and forget - 1, at least once - 2, once and once only.</dd>
+        <dd>
+            <ul>
+                <li>0 : fire and forget</li>
+                <li>1 : at least once</li>
+                <li>2 : once and once only</li>
+            </ul>
+        </dd>
     </dl>
 
     <h3>Details</h3>
@@ -163,11 +169,17 @@
     <h3>Inputs</h3>
     <dl class='message-properties'>
         <dt>payload <span class="property-type">string | buffer</span></dt>
-        <dd>a string unless detected as a binary buffer.</dd>
+        <dd>JSON Object, a UTF-8, or Binary/Base64 if Format is json, utf-8, or buffer/base64 respectively</dd>
         <dt>topic <span class="property-type">string</span></dt>
         <dd>the MQTT topic, uses / as a hierarchy separator.</dd>
         <dt>qos <span class="property-type">number</span> </dt>
-        <dd>0, fire and forget - 1, at least once - 2, once and once only.</dd>
+        <dd>
+            <ul>
+                <li>0 : fire and forget</li>
+                <li>1 : at least once</li>
+                <li>2 : once and once only</li>
+            </ul>
+        </dd>
         <dt>retain <span class="property-type">boolean</span></dt>
         <dd>true indicates the message was retained and may be old.</dd>
     </dl>
