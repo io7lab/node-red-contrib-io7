@@ -61,10 +61,11 @@ module.exports = function(RED) {
 
         hubConn.on('connect', function (topic, message) {
             let deviceId = config.allDevices ? '+' : config.deviceId;
-            let event = config.allEvents ? '+' : config.evt;
+            let evt = config.allEvents ? '+' : config.evt;
             let format = config.allFormats ? '+' : config.fmt;
+            node.topic=`iot3/${deviceId}/evt/${evt}/fmt/${format}`;
             hubConn.subscribe(
-                `iot3/${deviceId}/evt/${event}/fmt/${format}`,
+                node.topic,
                 {qos: parseInt(config.qos)}
             );
             node.status({
@@ -73,7 +74,7 @@ module.exports = function(RED) {
         });
 
         hubConn.on('message', function (topic, message) {
-            if (matchTopic(`iot3/${config.deviceId}/evt/${config.evt}/fmt/${config.fmt}`, topic)) {
+            if (matchTopic(node.topic, topic)) {
                 try {
                     if (config.fmt === 'buffer' || config.fmt === 'base64') {
                         node.send({ payload: message, topic: topic, qos: config.qos});
