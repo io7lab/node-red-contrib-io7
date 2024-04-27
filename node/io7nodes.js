@@ -15,13 +15,14 @@ module.exports = function(RED) {
             username: node.credentials.apiKey,
             clientId: node.clientid || 'io7_' + RED.util.generateId(),
             password: node.credentials.apiToken,
-            clean: true,
-            rejectUnauthorized: true
+            clean: true
         };
         let tlsNode = RED.nodes.getNode(config.tls);
         if (tlsNode) {
             tlsNode.addTLSOptions(mqttOptions);
-        }  
+        } else {
+            mqttOptions.rejectUnauthorized = false
+        } 
         node.hubConn = mqtt.connect(mqtt_url, mqttOptions);
         node.hubConn.on('connect', function (topic, message) {
             node.log(`Connected to io7 hub: ${mqtt_url} with ${config.apiKey}`);
