@@ -259,7 +259,12 @@
         outputs:1,
         icon: "memory.png",
         label: function() {
-            return this.name||"io7 in";
+            if (this.name) {
+                return this.name;
+            } else if (!this.allDevices && this.deviceId && this.deviceId !== "+" && this.deviceId.trim() !== "") {
+                return this.deviceId;
+            }
+            return "io7 in";
         },
         oneditprepare: function () {
             $("#node-input-allDevices").change(function () {
@@ -302,7 +307,12 @@
         outputs:0,
         icon: "memory.png",
         label: function() {
-            return this.name||"io7 out";
+            if (this.name) {
+                return this.name;
+            } else if (this.deviceId && this.deviceId.trim() !== "") {
+                return this.deviceId;
+            }
+            return "io7 out";
         }
     });
 
